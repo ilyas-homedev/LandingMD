@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" />
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
+  <link rel="stylesheet" href="./styles/styles.css">
+  <title>Landing</title>
+</head>
+<body>
+  <!-- Сделать layout и modal отдельными, а не вложенными один в один -->
+  <div id="modal-layout" class="modal-layout">
+    <button id="modal-cross" class="close-modal-cross">&times</button>
+    <div id="modal" class="modal">
+      <h2>Обратный звонок</h2>
+      <form class="call-back-form">
+        <div class="form-field">
+          <input type="tel" placeholder="(99) 999-99-99">
+        </div>
+        <button id="modal-form-btn" type="submit" class="btn">ОТПРАВИТЬ</button>
+      </form>
+      <p>Мы не передаём ваши данные никому</p>
+    </div>
+  </div>
+  <header>
+    <div class="header-container">
+      <div class="leftside">
+        <img src="./assets/logo.svg" alt="logo">
+      </div>
+      <div class="center">
+        <ul>
+          <li><a href="#">Калькулятор</a></li>
+          <li><a href="#">Анкета</a></li>
+          <li><a href="#">Вопросы</a></li>
+          <li><a href="#">Контакты</a></li>
+        </ul>
+      </div>
+      <div class="rightside">
+        <a href="tel:+375(44)550-33-76">+375(99)999-99-99</a>
+        <button id="call-back-btn" class="btn">ОБРАТНЫЙ ЗВОНОК</button>
+      </div>
+    </div>
+  </header>
+    <main>
+      <div class="cover">
+        <div class="cover--info">
+          <h1>Работа в такси в Минске с чистым <br>доходом от 50 до 110 BYN в день <br>+ чаевые!</h1>
+          <p>Рекордный доход в MEGA DRIVE составил 204 BYN в день</p>
+          <div class="actions">
+            <button class="btn calc-income-btn animated-btn" onclick="window.location.href='#count-a-profit'">РАССЧИТАТЬ ДОХОД</button>
+            <button class="btn fill-form-btn" onclick="window.location.href='#send-form'">ЗАПОЛНИТЬ АНКЕТУ</button>
+          </div>
+        </div>
+      </div>
+      <div class="conditions">
+        <div class="card">
+          <img src="./assets/sun.svg" alt="sun">
+          <p class="card-header">Нет обязательных ночных смен</p>
+          <p>Только ты в праве решать, когда тебе зарабатывать</p>
+        </div>
+        <div class="card">
+          <img src="./assets/plus.svg" alt="plus">
+          <p class="card-header">Машины класса комфорт</p>
+          <p>VW Polo & Skoda Rapid. Есть машины 2021 модельного года.</p>
+        </div>
+        <div class="card">
+          <img src="./assets/finance.svg" alt="finance">
+          <p class="card-header">Пакет дополнительных заказов</p>
+          <p>Заказы поступают вне системы Яндекс. Уровень чаевых выше.</p>
+        </div>
+      </div>
+      <div class="form-container" id="count-a-profit">
+        <div class="bordered-form">
+          <p>Узнай прямо сейчас сколько ты заработаешь с <span>MEGA DRIVE!</span></p>
+          <form>
+            <div class="form-field calculator">
+              <label for="income">Средняя выручка в день без комиссии Яндекса:</label>
+              <div class="input-range">
+                <input class="slider" type="range" id="income" min="130" max="300" step="1" value="130">
+                <div class="progress-bar"></div>
+                <div class="slider-value-track">
+                  <div class="slider-value">130</div>
+                </div>
+              </div>
+              <div class="minmax-values">
+                <div>130</div>
+                <div>300</div>
+              </div>
+            </div>
+            <div class="form-field calculator">
+              <label for="days">Количество рабочих дней в месяц:</label>
+              <div class="input-range">
+                <input class="slider" type="range" id="days" min="8" max="31" step="1" value="8">
+                <div class="progress-bar"></div>
+                <div class="slider-value-track">
+                  <div class="slider-value">8</div>
+                </div>
+              </div>
+              <div class="minmax-values">
+                <div>8</div>
+                <div>31</div>
+              </div>
+            </div>
+            <p>Доход в месяц:</p>
+            <p class="total-sum"><span data-type="total-sum" class="sum"></span> BYN + чаевые</p>
+            <button type="submit" class="btn submit-btn animated-btn" onclick="window.location.href='#send-form'">ОТПРАВИТЬ АНКЕТУ</button>
+          </form>
+        </div>
+      </div>
+      <div class="form-container" id="send-form">
+        <div class="bordered-form worksheet">
+          <p>Заполни анкету и зарабатывай с <span>MEGA DRIVE!</span></p>
+          <p>В <span>MEGA DRIVE </span>работают водители с водительским<br> стажем не менее 2-х лет категории B.</p>
+          <form autocomplete="off">
+            <div class="form-field">
+              <input type="text" id="name">
+              <label for="name">Имя Фамилия</label>
+            </div>
+            <div class="form-field">
+              <input type="tel" placeholder="(99) 999-99-99">
+            </div>
+            <button type="submit" class="btn submit-btn animated-btn">ОТПРАВИТЬ АНКЕТУ</button>
+          </form>
+        </div>
+      </div>
+      <div class="questions-section">
+        <h1>Не устраивайтесь на работу в такси в Минске,<br> пока не выясните эти вопросы!</h1>
+        <ul class="questions">
+          <li>
+            <p class="question-header">1. Какую ответственность несёте вы как водитель при ДТП? (размер штрафа за ремонт и простой автомобиля)</p>
+            <p>В <span>MEGA DRIVE</span> штрафы в случае ДТП со стороны компании отсутствуют, при условии предоставления вами справки о ДТП.</p>
+          </li>
+          <li>
+            <p class="question-header">2. Имеется ли в машине таксометр для приема наличных средств? (Согласно законодательства РБ, водитель такси, в т. ч. «Яндекса», «Убера» не могут брать с пассажиров наличные деньги, если в автомобиле нет таксометра.)</p>
+            <p>В <span>MEGA DRIVE</span> все автомобили оборудованы таксометром.</p>
+          </li>
+          <li>
+            <p class="question-header">3. Есть ли страховка ответственности перевозчика перед пассажиром? Находиться ли копия в машине? (Согласно законодательства РБ, копия страховки должна находиться в каждом автомобиле.)
+            </p>
+            <p>Во всех автомобилях <span>MEGA DRIVE</span> есть копии страховок ответственности перевозчика перед пассажиром.</p>
+          </li>
+          <li>
+            <p class="question-header">4. Оплатят ли вам простой во время технического обслуживания автомобиля в вашу смену?</p>
+            <p><span>MEGA DRIVE</span> оплатит простои исходя из среднечасового заработка компании.</p>
+          </li>
+          <li>
+            <p class="question-header">5. Когда вы сможете расторгнуть Трудовой контракт?</p>
+            <p>Предупредив нас за 10 рабочих дней, вы сможете расторгнуть Трудовой контракт.</p>
+          </li>
+          <li>
+            <p class="question-header">6. Оплатят ли вам отпуск и больничный?</p>
+            <p>В <span>MEGA DRIVE</span> вы работаете по Трудовому контракту, поэтому вы получите соответствующие выплаты.</p>
+          </li>
+          <li>
+            <p class="question-header">7. За чей счет происходит мойка автомобиля и какие расходники вам компенсируются?</p>
+            <p><span>MEGA DRIVE</span> берёт на себя расходы за мойку автомобиля, заправку, техническое обслуживание, незамерзайку.</p>
+          </li>
+          <li>
+            <p class="question-header">8. Кто предоставляет телефон, интернет и звонки для работы?</p>
+            <p><span>MEGA DRIVE</span> предоставляет для работы мобильный телефон с безлимитным интернетом и звонками во все сети.</p>
+          </li>
+          <li>
+            <p class="question-header">9. Спросите у перевозчика не процент, а точную сумму, которую вы получите с каждого рубля за вычетом комиссии яндекс и сколько вы сможете заработать за смену?</p>
+            <p><a href="#count-a-profit">Узнайте сколько вы можете зарабатывать с <span>MEGA DRIVE</span></a>.</p>
+          </li>
+        </ul>
+        <button class="btn submit-btn animated-btn" onclick="window.location.href='#send-form'">ОТПРАВИТЬ АНКЕТУ</button>
+      </div>
+      <div class="contacts-section">
+        <div class="contacts">
+          <div class="contacts-container">
+            <p class="card-header">Контакты</p>
+            <div class="phone-number">
+              <p>Телефон:</p>
+              <p><a href="tel:+375(44)550-33-76">+375 (99) 999-99-99</a></p>
+              <p>Звонить с 09:00 до 20:00</p>
+            </div>
+            <div class="adress">
+              <p>Адрес:</p>
+              <p>г.Минск, ул. Платонова, д. 22, оф. 1003</p>
+              <p>Время работы:</p>
+              <p>Пн-Пт с 09:00 до 17:00</p>
+            </div>
+          </div>
+          <div class="map-container">
+            <div id="map"></div>
+          </div>
+        </div>
+      </div>
+      <footer>
+        <div class="footer-container">
+          <p>2021</p>
+          <p>© Все права защищены</p>
+          <br>
+          <p>ООО «Городские Улицы» УНП 193365432</p>
+          <p>220005, г.Минск, ул. Платонова, д. 22, оф. 1003</p>
+        </div>
+      </footer>
+      <div class="connect-us-container">
+        <div id="connectUsBtn" class="circle main-circle"><p>&times</p></div>
+        <div class="circle inner-circle telegram-link">
+          <a href="#"></a>
+        </div>
+        <div class="circle inner-circle call-link">
+          <a href="tel:+375(44)550-33-76"></a>
+        </div>
+      </div>
+    </main>
+
+    <script src="scripts.js"></script>
+</body>
+</html>
